@@ -15,6 +15,8 @@ import {
   TrendingUp,
   Tag,
   AlertCircle,
+  Image as ImageIcon,
+  Upload,
 } from 'lucide-react';
 
 interface FormErrors {
@@ -62,6 +64,7 @@ export default function ProductsPage() {
     price_buy: 0,
     price_sell: 0,
     low_stock_threshold: 5,
+    image_url: '',
   });
 
   const [categoryForm, setCategoryForm] = useState({
@@ -148,6 +151,18 @@ export default function ProductsPage() {
   // ──────────────────────────────────────────────
   // Handlers
   // ──────────────────────────────────────────────
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        setProductForm(prev => ({ ...prev, image_url: reader.result as string }));
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleOpenAddProduct = () => {
     setEditingProduct(null);
     setFormErrors({});
@@ -160,6 +175,7 @@ export default function ProductsPage() {
       price_buy: 0,
       price_sell: 0,
       low_stock_threshold: 5,
+      image_url: '',
     });
     setShowProductModal(true);
   };
@@ -176,6 +192,7 @@ export default function ProductsPage() {
       price_buy: p.price_buy,
       price_sell: p.price_sell,
       low_stock_threshold: p.low_stock_threshold,
+      image_url: p.image_url || '',
     });
     setShowProductModal(true);
   };
@@ -294,12 +311,12 @@ export default function ProductsPage() {
     `w-full bg-white border ${error ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-blue-500'} rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none transition`;
 
   return (
-    <div className="p-8 max-w-7xl mx-auto w-full space-y-8">
+    <div className="p-5 lg:p-6 xl:p-8 max-w-screen-xl mx-auto w-full space-y-5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
-          <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight">Manajemen Produk</h2>
-          <p className="text-slate-500 mt-1">Atur stok barang gudang Anda dengan asisten rekomendasi Gemini AI.</p>
+          <h2 className="text-xl font-extrabold text-slate-800 tracking-tight">Manajemen Produk</h2>
+          <p className="text-slate-500 mt-0.5 text-xs">Atur stok barang gudang Anda dengan asisten rekomendasi Gemini AI.</p>
         </div>
         <div className="flex space-x-3 shrink-0">
           <button
@@ -341,14 +358,14 @@ export default function ProductsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                <th className="px-6 py-4">Nama Produk / SKU</th>
-                <th className="px-6 py-4">Kategori</th>
-                <th className="px-6 py-4">Stok</th>
-                <th className="px-6 py-4">Harga Beli</th>
-                <th className="px-6 py-4">Harga Jual</th>
-                <th className="px-6 py-4 text-right">Aksi Stok</th>
-                <th className="px-6 py-4 text-right">Operasi</th>
+              <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                <th className="px-4 py-3">Nama Produk / SKU</th>
+                <th className="px-4 py-3">Kategori</th>
+                <th className="px-4 py-3">Stok</th>
+                <th className="px-4 py-3">Harga Beli</th>
+                <th className="px-4 py-3">Harga Jual</th>
+                <th className="px-4 py-3 text-right">Aksi Stok</th>
+                <th className="px-4 py-3 text-right">Operasi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-sm">
@@ -363,44 +380,55 @@ export default function ProductsPage() {
                   const isLow = p.quantity <= p.low_stock_threshold;
                   return (
                     <tr key={p.id} className="hover:bg-slate-50/50 transition-all">
-                      <td className="px-6 py-4">
-                        <div className="font-semibold text-slate-800">{p.name}</div>
-                        <div className="text-xs text-slate-500 font-mono mt-0.5">{p.sku}</div>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center space-x-2.5">
+                          {p.image_url ? (
+                            <img src={p.image_url} alt={p.name} className="w-9 h-9 rounded-lg object-cover border border-slate-200 shrink-0" />
+                          ) : (
+                            <div className="w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 shrink-0">
+                              <Package className="w-4 h-4" />
+                            </div>
+                          )}
+                          <div>
+                            <div className="font-semibold text-slate-800 text-xs leading-tight">{p.name}</div>
+                            <div className="text-[10px] text-slate-500 font-mono mt-0.5">{p.sku}</div>
+                          </div>
+                        </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-500/10 text-blue-700 border border-blue-500/10">
+                      <td className="px-4 py-3">
+                        <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-blue-500/10 text-blue-700 border border-blue-500/10">
                           {p.category?.name || '—'}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center space-x-2">
-                          <span className={`font-bold ${isLow ? 'text-amber-600' : 'text-slate-800'}`}>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center space-x-1.5">
+                          <span className={`font-bold text-xs ${isLow ? 'text-amber-600' : 'text-slate-800'}`}>
                             {p.quantity} Pcs
                           </span>
                           {isLow && (
-                            <span className="text-[10px] bg-amber-500/10 text-amber-600 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold">
+                            <span className="text-[9px] bg-amber-500/10 text-amber-600 border border-amber-500/20 px-1 py-0.5 rounded font-bold">
                               Kritis
                             </span>
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-slate-600">Rp {p.price_buy.toLocaleString('id-ID')}</td>
-                      <td className="px-6 py-4 text-slate-600">Rp {p.price_sell.toLocaleString('id-ID')}</td>
-                      <td className="px-6 py-4 text-right space-x-1.5">
+                      <td className="px-4 py-3 text-slate-600 text-xs">Rp {p.price_buy.toLocaleString('id-ID')}</td>
+                      <td className="px-4 py-3 text-slate-600 text-xs">Rp {p.price_sell.toLocaleString('id-ID')}</td>
+                      <td className="px-4 py-3 text-right space-x-1">
                         <button
                           onClick={() => handleOpenTransaction(p, 'IN')}
-                          className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 border border-emerald-500/20 text-xs font-bold transition"
+                          className="inline-flex items-center space-x-1 px-2 py-1 rounded-md bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 border border-emerald-500/20 text-[11px] font-bold transition"
                         >
                           <TrendingUp className="w-3 h-3" /><span>Masuk</span>
                         </button>
                         <button
                           onClick={() => handleOpenTransaction(p, 'OUT')}
-                          className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 border border-amber-500/20 text-xs font-bold transition"
+                          className="inline-flex items-center space-x-1 px-2 py-1 rounded-md bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 border border-amber-500/20 text-[11px] font-bold transition"
                         >
                           <TrendingDown className="w-3 h-3" /><span>Keluar</span>
                         </button>
                       </td>
-                      <td className="px-6 py-4 text-right space-x-2">
+                      <td className="px-4 py-3 text-right space-x-1">
                         <button
                           onClick={() => handleOpenEditProduct(p)}
                           className="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
@@ -517,6 +545,59 @@ export default function ProductsPage() {
                   rows={2}
                   className={inputCls()}
                 />
+              </div>
+
+              {/* Gambar Produk / Image URL */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                  Gambar Produk
+                </label>
+                <div className="flex items-center space-x-3">
+                  {productForm.image_url ? (
+                    <div className="relative group shrink-0">
+                      <img
+                        src={productForm.image_url}
+                        alt="Preview"
+                        className="w-12 h-12 rounded-xl object-cover border border-slate-200"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setProductForm({ ...productForm, image_url: '' })}
+                        className="absolute -top-1.5 -right-1.5 bg-red-500 text-white rounded-full p-0.5 text-xs shadow hover:bg-red-600 transition"
+                        title="Hapus Gambar"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 shrink-0">
+                      <ImageIcon className="w-6 h-6" />
+                    </div>
+                  )}
+
+                  <div className="flex-1 space-y-2">
+                    <input
+                      type="text"
+                      value={productForm.image_url}
+                      onChange={(e) => setProductForm({ ...productForm, image_url: e.target.value })}
+                      placeholder="https://example.com/gambar.jpg atau upload file..."
+                      className={inputCls()}
+                    />
+                    <div className="flex items-center space-x-2">
+                      <label className="cursor-pointer inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Upload File</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileUpload}
+                          className="hidden"
+                        />
+                      </label>
+                      <span className="text-[11px] text-slate-400">URL atau pilih file gambar</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Harga Beli + Harga Jual */}

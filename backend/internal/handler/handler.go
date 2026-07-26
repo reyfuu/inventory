@@ -71,6 +71,7 @@ func CreateProduct(c *gin.Context) {
 		PriceBuy          float64 `json:"price_buy"`
 		PriceSell         float64 `json:"price_sell"`
 		LowStockThreshold int     `json:"low_stock_threshold"`
+		ImageURL          string  `json:"image_url"`
 	}
 
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -100,6 +101,7 @@ func CreateProduct(c *gin.Context) {
 		PriceBuy:          req.PriceBuy,
 		PriceSell:         req.PriceSell,
 		LowStockThreshold: req.LowStockThreshold,
+		ImageURL:          req.ImageURL,
 	}
 
 	if err := config.DB.Create(&product).Error; err != nil {
@@ -142,6 +144,7 @@ func UpdateProduct(c *gin.Context) {
 		PriceBuy          float64 `json:"price_buy"`
 		PriceSell         float64 `json:"price_sell"`
 		LowStockThreshold int     `json:"low_stock_threshold"`
+		ImageURL          string  `json:"image_url"`
 	}
 
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -153,6 +156,7 @@ func UpdateProduct(c *gin.Context) {
 		product.Name = req.Name
 	}
 	product.Description = req.Description
+	product.ImageURL = req.ImageURL
 	if req.CategoryID != "" {
 		catUUID, err := uuid.Parse(req.CategoryID)
 		if err == nil {

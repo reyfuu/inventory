@@ -24,6 +24,7 @@ export interface Product {
   price_buy: number;
   price_sell: number;
   low_stock_threshold: number;
+  image_url?: string;
   created_at: string;
   updated_at: string;
 }

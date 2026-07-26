@@ -41,6 +41,7 @@ type Product struct {
 	PriceBuy           float64   `gorm:"type:decimal(12,2)" json:"price_buy"`
 	PriceSell          float64   `gorm:"type:decimal(12,2)" json:"price_sell"`
 	LowStockThreshold  int       `gorm:"default:5" json:"low_stock_threshold"`
+	ImageURL           string    `json:"image_url"`
 	CreatedAt          time.Time `json:"created_at"`
 	UpdatedAt          time.Time `json:"updated_at"`
 }
