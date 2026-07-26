@@ -36,6 +36,16 @@ func InitDB() {
 	}
 	log.Println("Database connection established.")
 
+	// Fix legacy constraint issue before auto-migration
+	db.Exec(`DO $$ 
+	BEGIN 
+		IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'products') THEN
+			IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uni_products_sku') THEN
+				ALTER TABLE products ADD CONSTRAINT uni_products_sku UNIQUE (sku);
+			END IF;
+		END IF;
+	END $$;`)
+
 	// Auto Migration — includes User table now
 	err = db.AutoMigrate(&model.User{}, &model.Category{}, &model.Product{}, &model.StockTransaction{})
 	if err != nil {

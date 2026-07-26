@@ -3,6 +3,9 @@ FROM golang:1.23-alpine AS builder
 
 RUN apk add --no-cache git ca-certificates
 
+# Allow Go to auto-download the required toolchain version from go.mod
+ENV GOTOOLCHAIN=auto
+
 WORKDIR /app
 
 # Cache dependencies

@@ -98,19 +98,7 @@ export default function ProductsPage() {
   };
 
   useEffect(() => {
-    let isMounted = true;
-    Promise.all([api.getProducts(), api.getCategories()])
-      .then(([prodData, catData]) => {
-        if (isMounted) {
-          setProducts(prodData);
-          setCategories(catData);
-        }
-      })
-      .catch((err) => console.error('Error fetching products:', err))
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
-    return () => { isMounted = false; };
+    loadData();
   }, []);
 
   // ──────────────────────────────────────────────
@@ -210,6 +198,7 @@ export default function ProductsPage() {
           price_buy: productForm.price_buy,
           price_sell: productForm.price_sell,
           low_stock_threshold: productForm.low_stock_threshold,
+          image_url: productForm.image_url,
         });
       } else {
         await api.createProduct(productForm);

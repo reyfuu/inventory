@@ -1,11 +1,11 @@
-version: '3.9'
-
 services:
   # ── PostgreSQL Database ────────────────────────────────────
   db:
     image: postgres:15-alpine
     container_name: inventory-db
     restart: unless-stopped
+    networks:
+      - inventory-net
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgrespassword
@@ -16,9 +16,9 @@ services:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d inventory"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   # ── Go Backend API ─────────────────────────────────────────
   backend:
@@ -27,6 +27,8 @@ services:
       dockerfile: Dockerfile
     container_name: inventory-backend
     restart: unless-stopped
+    networks:
+      - inventory-net
     depends_on:
       db:
         condition: service_healthy
@@ -47,17 +49,21 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        # Frontend calls backend via host machine during SSR
-        # Client-side calls go through the browser → localhost:8080
         NEXT_PUBLIC_API_URL: http://localhost:8080/api
     container_name: inventory-frontend
     restart: unless-stopped
+    networks:
+      - inventory-net
     depends_on:
       - backend
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8080/api
     ports:
       - "3000:3000"
+
+networks:
+  inventory-net:
+    driver: bridge
 
 volumes:
   postgres_data:

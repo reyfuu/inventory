@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { api, Product, Category } from '@/lib/api';
-import { 
-  Package, 
-  Layers, 
-  Wallet, 
-  AlertTriangle, 
+import { useState, useEffect, useRef } from 'react';
+import { api, Product, Category, ChatMessage } from '@/lib/api';
+import {
+  Package,
+  Layers,
+  DollarSign,
+  AlertTriangle,
   Loader2,
   ArrowRight,
   Bot,
@@ -54,14 +54,14 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="page-wrap">
+    <div className="p-8 max-w-7xl mx-auto w-full space-y-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">Dashboard Overview</h2>
-          <p className="text-slate-500 text-xs mt-0.5">Ringkasan statistik gudang dan status inventaris real-time.</p>
+          <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Dashboard Overview</h2>
+          <p className="text-slate-500 text-sm mt-0.5">Ringkasan statistik gudang dan status inventaris real-time.</p>
         </div>
-        <Link 
+        <Link
           href="/products"
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs transition shadow-sm self-start md:self-auto"
         >
@@ -71,53 +71,53 @@ export default function Dashboard() {
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
             <Package className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Total Produk</p>
-            <h3 className="kpi-value text-slate-900">{totalProducts}</h3>
+            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Total Produk</p>
+            <h3 className="text-2xl font-extrabold text-slate-900 mt-0.5">{totalProducts}</h3>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 shrink-0">
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 shrink-0">
             <Layers className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Total Kategori</p>
-            <h3 className="kpi-value text-slate-900">{totalCategories}</h3>
+            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Total Kategori</p>
+            <h3 className="text-2xl font-extrabold text-slate-900 mt-0.5">{totalCategories}</h3>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
-            <Wallet className="w-5 h-5" />
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+            <DollarSign className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Nilai Aset (Beli)</p>
-            <h3 className="kpi-value text-slate-900">
+            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Nilai Aset (Beli)</p>
+            <h3 className="text-xl font-extrabold text-slate-900 mt-0.5">
               Rp {totalAssetValue.toLocaleString('id-ID')}
             </h3>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+          <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Stok Kritis</p>
-            <h3 className="kpi-value text-slate-900">{lowStockProducts.length}</h3>
+            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Stok Kritis</p>
+            <h3 className="text-2xl font-extrabold text-slate-900 mt-0.5">{lowStockProducts.length}</h3>
           </div>
         </div>
       </div>
 
       {/* Main Grid: Low Stock Alert & AI Banner */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         {/* Left Column (2 cols): Low Stock Table/Cards */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
@@ -143,21 +143,12 @@ export default function Dashboard() {
               ) : (
                 lowStockProducts.map(p => (
                   <div key={p.id} className="p-4 flex items-center justify-between hover:bg-slate-50/80 transition-all">
-                    <div className="flex items-center space-x-3 overflow-hidden mr-4">
-                      {p.image_url ? (
-                        <img src={p.image_url} alt={p.name} className="w-10 h-10 rounded-xl object-cover border border-slate-200 shrink-0" />
-                      ) : (
-                        <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 shrink-0">
-                          <Package className="w-5 h-5" />
-                        </div>
-                      )}
-                      <div className="overflow-hidden">
-                        <p className="font-bold text-slate-900 text-sm truncate">{p.name}</p>
-                        <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-                          <span className="font-mono bg-slate-100 px-1.5 py-0.5 rounded text-[11px] text-slate-600">{p.sku}</span>
-                          <span>&bull;</span>
-                          <span>{p.category?.name || 'Uncategorized'}</span>
-                        </div>
+                    <div className="overflow-hidden mr-4">
+                      <p className="font-bold text-slate-900 text-sm truncate">{p.name}</p>
+                      <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                        <span className="font-mono bg-slate-100 px-1.5 py-0.5 rounded text-[11px] text-slate-600">{p.sku}</span>
+                        <span>&bull;</span>
+                        <span>{p.category?.name || 'Uncategorized'}</span>
                       </div>
                     </div>
                     <div className="text-right shrink-0">
@@ -172,8 +163,8 @@ export default function Dashboard() {
             </div>
 
             <div className="p-4 bg-slate-50 border-t border-slate-100 text-right">
-              <Link 
-                href="/products" 
+              <Link
+                href="/products"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition"
               >
                 <span>Lihat Seluruh Produk</span>
