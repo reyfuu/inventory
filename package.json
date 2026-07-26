@@ -1,0 +1,14 @@
+{
+  "name": "inventory-root",
+  "version": "1.0.0",
+  "description": "Root package manager to concurrently run Next.js and Go systems",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix frontend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "cd backend && go run cmd/api/main.go",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

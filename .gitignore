@@ -1,0 +1,27 @@
+# Environment variables
+.env
+*.env
+
+# Dependencies
+node_modules/
+vendor/
+
+# Build & Dist
+.next/
+dist/
+build/
+
+# Go binaries & tarballs
+*.tar.gz
+backend/cmd/api/api
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# IDE & OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
