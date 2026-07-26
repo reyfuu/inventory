@@ -40,7 +40,7 @@ export default function TransactionsPage() {
       </div>
 
       {/* Ledger Table */}
-      <div className="glass-panel rounded-2xl overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
