@@ -70,8 +70,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   // ── Main layout with sidebar ──
   return (
     <div className="h-full flex overflow-hidden bg-slate-50/50">
-      {/* Sidebar — 56px narrower on small screens */}
-      <aside className="w-56 lg:w-60 border-r border-slate-200 bg-white flex flex-col justify-between shrink-0 shadow-sm">
+      {/* Sidebar — fluid width via --sidebar-w CSS variable */}
+      <aside className="sidebar border-r border-slate-200 bg-white flex flex-col justify-between shadow-sm">
         <div className="p-6">
           {/* Logo */}
           <div className="flex items-center space-x-2.5 mb-6">
@@ -142,8 +142,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         </div>
       </aside>
 
-      {/* Main content */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+      {/* Main content — fills remaining space, scrollable */}
+      <main className="main-content flex flex-col">
         {children}
       </main>
 

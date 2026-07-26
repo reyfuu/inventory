@@ -5,7 +5,7 @@ import { api, Product, Category } from '@/lib/api';
 import { 
   Package, 
   Layers, 
-  DollarSign, 
+  Wallet, 
   AlertTriangle, 
   Loader2,
   ArrowRight,
@@ -54,7 +54,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-5 lg:p-7 xl:p-8 max-w-screen-xl mx-auto w-full space-y-6">
+    <div className="page-wrap">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -77,8 +77,8 @@ export default function Dashboard() {
             <Package className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Total Produk</p>
-            <h3 className="text-xl font-extrabold text-slate-900 mt-0.5">{totalProducts}</h3>
+            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Total Produk</p>
+            <h3 className="kpi-value text-slate-900">{totalProducts}</h3>
           </div>
         </div>
 
@@ -87,18 +87,18 @@ export default function Dashboard() {
             <Layers className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Total Kategori</p>
-            <h3 className="text-xl font-extrabold text-slate-900 mt-0.5">{totalCategories}</h3>
+            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Total Kategori</p>
+            <h3 className="kpi-value text-slate-900">{totalCategories}</h3>
           </div>
         </div>
 
         <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center space-x-3">
           <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
-            <DollarSign className="w-5 h-5" />
+            <Wallet className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Nilai Aset (Beli)</p>
-            <h3 className="text-base font-extrabold text-slate-900 mt-0.5">
+            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Nilai Aset (Beli)</p>
+            <h3 className="kpi-value text-slate-900">
               Rp {totalAssetValue.toLocaleString('id-ID')}
             </h3>
           </div>
@@ -109,8 +109,8 @@ export default function Dashboard() {
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Stok Kritis</p>
-            <h3 className="text-xl font-extrabold text-slate-900 mt-0.5">{lowStockProducts.length}</h3>
+            <p className="text-[11px] text-slate-500 font-medium uppercase tracking-wider leading-tight">Stok Kritis</p>
+            <h3 className="kpi-value text-slate-900">{lowStockProducts.length}</h3>
           </div>
         </div>
       </div>

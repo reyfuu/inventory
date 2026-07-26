@@ -32,7 +32,7 @@ export default function TransactionsPage() {
   }
 
   return (
-    <div className="p-5 lg:p-6 xl:p-8 max-w-screen-xl mx-auto w-full space-y-5">
+    <div className="page-wrap">
       {/* Header */}
       <div>
         <h2 className="text-xl font-extrabold text-slate-800 tracking-tight">Riwayat Transaksi Stok</h2>
@@ -45,12 +45,12 @@ export default function TransactionsPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                <th className="px-4 py-3">Waktu Transaksi</th>
-                <th className="px-4 py-3">Tipe</th>
-                <th className="px-4 py-3">Barang</th>
-                <th className="px-4 py-3">Kategori</th>
-                <th className="px-4 py-3">Jumlah</th>
-                <th className="px-4 py-3">Keterangan</th>
+                <th className="tbl-cell">Waktu Transaksi</th>
+                <th className="tbl-cell">Tipe</th>
+                <th className="tbl-cell">Barang</th>
+                <th className="tbl-cell">Kategori</th>
+                <th className="tbl-cell">Jumlah</th>
+                <th className="tbl-cell">Keterangan</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-sm">
@@ -73,13 +73,13 @@ export default function TransactionsPage() {
 
                   return (
                     <tr key={t.id} className="hover:bg-slate-50/50 transition-all">
-                      <td className="px-4 py-3 text-slate-500">
+                      <td className="tbl-cell text-slate-500">
                         <div className="flex items-center space-x-2">
                           <Calendar className="w-3.5 h-3.5 text-slate-400" />
                           <span>{formattedDate}</span>
                         </div>
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="tbl-cell">
                         {t.type === 'IN' ? (
                           <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-700 border border-emerald-500/20">
                             <ArrowUpRight className="w-3 h-3" />
@@ -92,22 +92,22 @@ export default function TransactionsPage() {
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 font-semibold text-slate-800">
+                      <td className="tbl-cell font-semibold text-slate-800">
                         {t.product?.name || 'Produk Dihapus'}
                         <div className="text-xs text-slate-500 font-mono font-normal mt-0.5">
                           {t.product?.sku}
                         </div>
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="tbl-cell">
                         <span className="inline-flex items-center space-x-1 text-xs text-slate-500">
                           <Tag className="w-3 h-3 text-slate-400" />
                           <span>{t.product?.category?.name || '-'}</span>
                         </span>
                       </td>
-                      <td className={`px-4 py-3 font-bold ${t.type === 'IN' ? 'text-emerald-600' : 'text-amber-600'}`}>
+                      <td className={`tbl-cell font-bold ${t.type === 'IN' ? 'text-emerald-600' : 'text-amber-600'}`}>
                         {t.type === 'IN' ? '+' : '-'}{t.quantity} Pcs
                       </td>
-                      <td className="px-4 py-3 text-slate-500 max-w-xs truncate">
+                      <td className="tbl-cell text-slate-500 max-w-xs truncate">
                         {t.notes || '-'}
                       </td>
                     </tr>

@@ -311,7 +311,7 @@ export default function ProductsPage() {
     `w-full bg-white border ${error ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-blue-500'} rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none transition`;
 
   return (
-    <div className="p-5 lg:p-6 xl:p-8 max-w-screen-xl mx-auto w-full space-y-5">
+    <div className="page-wrap">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
@@ -359,13 +359,13 @@ export default function ProductsPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                <th className="px-4 py-3">Nama Produk / SKU</th>
-                <th className="px-4 py-3">Kategori</th>
-                <th className="px-4 py-3">Stok</th>
-                <th className="px-4 py-3">Harga Beli</th>
-                <th className="px-4 py-3">Harga Jual</th>
-                <th className="px-4 py-3 text-right">Aksi Stok</th>
-                <th className="px-4 py-3 text-right">Operasi</th>
+                <th className="tbl-cell">Nama Produk / SKU</th>
+                <th className="tbl-cell">Kategori</th>
+                <th className="tbl-cell">Stok</th>
+                <th className="tbl-cell">Harga Beli</th>
+                <th className="tbl-cell">Harga Jual</th>
+                <th className="tbl-cell text-right">Aksi Stok</th>
+                <th className="tbl-cell text-right">Operasi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-sm">
@@ -380,7 +380,7 @@ export default function ProductsPage() {
                   const isLow = p.quantity <= p.low_stock_threshold;
                   return (
                     <tr key={p.id} className="hover:bg-slate-50/50 transition-all">
-                      <td className="px-4 py-3">
+                      <td className="tbl-cell">
                         <div className="flex items-center space-x-2.5">
                           {p.image_url ? (
                             <img src={p.image_url} alt={p.name} className="w-9 h-9 rounded-lg object-cover border border-slate-200 shrink-0" />
@@ -395,12 +395,12 @@ export default function ProductsPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="tbl-cell">
                         <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-blue-500/10 text-blue-700 border border-blue-500/10">
                           {p.category?.name || '—'}
                         </span>
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="tbl-cell">
                         <div className="flex items-center space-x-1.5">
                           <span className={`font-bold text-xs ${isLow ? 'text-amber-600' : 'text-slate-800'}`}>
                             {p.quantity} Pcs
@@ -412,8 +412,8 @@ export default function ProductsPage() {
                           )}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-slate-600 text-xs">Rp {p.price_buy.toLocaleString('id-ID')}</td>
-                      <td className="px-4 py-3 text-slate-600 text-xs">Rp {p.price_sell.toLocaleString('id-ID')}</td>
+                      <td className="tbl-cell text-slate-600 text-xs">Rp {p.price_buy.toLocaleString('id-ID')}</td>
+                      <td className="tbl-cell text-slate-600 text-xs">Rp {p.price_sell.toLocaleString('id-ID')}</td>
                       <td className="px-4 py-3 text-right space-x-1">
                         <button
                           onClick={() => handleOpenTransaction(p, 'IN')}
