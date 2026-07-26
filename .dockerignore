@@ -1,0 +1,7 @@
+.git
+.gitignore
+README.md
+docs/
+*.md
+go1.26.4.linux-amd64.tar.gz
+node_modules/

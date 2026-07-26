@@ -1,10 +1,11 @@
-version: '3.8'
+version: '3.9'
 
 services:
+  # ── PostgreSQL Database ────────────────────────────────────
   db:
     image: postgres:15-alpine
     container_name: inventory-db
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgrespassword
@@ -13,6 +14,50 @@ services:
       - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d inventory"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Go Backend API ─────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: inventory-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgrespassword
+      DB_NAME: inventory
+      PORT: 8080
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    ports:
+      - "8080:8080"
+
+  # ── Next.js Frontend ───────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Frontend calls backend via host machine during SSR
+        # Client-side calls go through the browser → localhost:8080
+        NEXT_PUBLIC_API_URL: http://localhost:8080/api
+    container_name: inventory-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080/api
+    ports:
+      - "3000:3000"
 
 volumes:
   postgres_data:
