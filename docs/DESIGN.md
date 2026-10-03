@@ -13,6 +13,7 @@ Bagian ini menjadi acuan visual UI yang diterapkan saat ini. Tema terang dan gel
 - Teks utama berwarna slate gelap, teks sekunder memakai slate sedang, dan garis pemisah tetap halus.
 - Biru digunakan untuk aksi utama, tautan, serta penanda fokus. Warna status hijau, amber, dan merah tetap membawa makna yang sama.
 - Hindari gradien biru yang kuat pada area kerja; latar hanya boleh memberi sedikit kedalaman.
+- Kartu informasi AI memakai permukaan terang dengan teks gelap agar tidak mendominasi dashboard.
 
 ### Tema gelap
 
@@ -20,6 +21,7 @@ Bagian ini menjadi acuan visual UI yang diterapkan saat ini. Tema terang dan gel
 - Teks utama berwarna terang lembut, teks sekunder tetap terbaca, dan border memiliki kontras tipis.
 - Biru aksen dinaikkan kecerahannya secukupnya untuk tombol, tautan, dan fokus. Status tetap memakai hue hijau, amber, dan merah.
 - Logo, navigasi aktif, dan header chat memakai permukaan brand gelap dengan teks putih pada kedua tema.
+- Kartu informasi AI mengikuti permukaan gelap bertingkat dengan teks terang.
 
 ### Perilaku tema
 

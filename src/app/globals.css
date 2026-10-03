@@ -97,18 +97,51 @@
 /* Same intent as .brand-solid but for the gradient panel: must stay dark in
    both themes because it carries text-white. */
 .brand-gradient {
+  --ai-card-fg: #172033;
+  --ai-card-muted: #526176;
+  --ai-card-soft: #68788f;
+  --ai-card-label: #1d4ed8;
+  --ai-card-surface: rgba(255, 255, 255, 0.72);
+  --ai-card-border: rgba(23, 32, 51, 0.10);
   background-image: linear-gradient(
-    to bottom right,
-    oklch(20.8% 0.042 265.755),
-    oklch(27.9% 0.041 260.031)
+    135deg,
+    #eaf2ff 0%,
+    #f8fbff 56%,
+    #ffffff 100%
   );
+  border: 1px solid var(--ai-card-border);
 }
 :root[data-theme="dark"] .brand-gradient {
+  --ai-card-fg: #f8fafc;
+  --ai-card-muted: #cbd5e1;
+  --ai-card-soft: #94a3b8;
+  --ai-card-label: #bfdbfe;
+  --ai-card-surface: rgba(255, 255, 255, 0.04);
+  --ai-card-border: rgba(203, 213, 225, 0.14);
   background-image: linear-gradient(
     to bottom right,
-    oklch(26.0% 0.048 263),
-    oklch(32.0% 0.050 261)
+    #17243a,
+    #202f46
   );
+}
+
+.ai-card-title,
+.ai-card-action {
+  color: var(--ai-card-fg);
+}
+.ai-card-copy,
+.ai-card-list {
+  color: var(--ai-card-muted);
+}
+.ai-card-hint {
+  color: var(--ai-card-soft);
+}
+.ai-card-label {
+  color: var(--ai-card-label);
+}
+.ai-card-capabilities {
+  background-color: var(--ai-card-surface);
+  border-color: var(--ai-card-border);
 }
 
 /* These two surfaces stay dark in both themes, so their descendants must not
