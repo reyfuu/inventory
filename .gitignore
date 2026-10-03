@@ -27,3 +27,12 @@ backend/cmd/api/api
 *.swp
 .neon
 .env.local
+
+# Next.js / Vercel
+/out/
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+*.pem
+npm-debug.log*
+.pnpm-store/
