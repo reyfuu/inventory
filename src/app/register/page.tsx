@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import ThemeToggle from '@/components/ThemeToggle';
 import { Loader2, UserPlus, AlertCircle, Box, Eye, EyeOff } from 'lucide-react';
 
 export default function RegisterPage() {
@@ -43,15 +44,17 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{
-      background: 'radial-gradient(circle at 50% 0%, #eff6ff 0%, #f8fafc 100%)',
-    }}>
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
+        <div className="flex justify-end mb-3">
+          <ThemeToggle />
+        </div>
+
+        <div className="surface rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
           <div className="p-8 space-y-6">
             {/* Logo */}
             <div className="flex flex-col items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-lg shadow-slate-900/15">
+              <div className="w-11 h-11 rounded-2xl brand-solid flex items-center justify-center text-white shadow-lg shadow-slate-900/15">
                 <Box className="w-5 h-5 text-blue-400" />
               </div>
               <div className="text-center">

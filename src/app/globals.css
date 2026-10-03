@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Attribute-driven dark variant. Not tied to prefers-color-scheme, so an
+   explicit user choice can override the device setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ─── Design Tokens ─────────────────────────────────── */
 :root {
   --bg: #f8fafc;
@@ -8,6 +12,9 @@
   --card-border: rgba(15, 23, 42, 0.08);
   --accent: #2563eb;
   --accent-glow: rgba(37, 99, 235, 0.08);
+
+  /* Native controls (select dropdowns, scrollbars, date pickers) follow this. */
+  color-scheme: light;
 
   /* ── Fluid sidebar width: 200px → 240px (768px → 1920px) */
   --sidebar-w: clamp(200px, 14vw, 240px);
@@ -24,6 +31,112 @@
   --h3: clamp(0.8rem, 0.75rem + 0.2vw, 0.9375rem);
 }
 
+
+/* ─── Dark theme ────────────────────────────────────────
+   Tailwind v4 compiles every colour utility to a CSS variable
+   (bg-slate-50 → var(--color-slate-50)), so inverting the slate scale here
+   flips ~220 existing utilities without touching a single component.
+
+   Deliberately NOT inverted:
+   - --color-white: it serves two opposite roles (surface surfaces vs
+     text-white on blue buttons). Surfaces use .surface instead.
+   - Accent hues: only lifted slightly for contrast on dark backgrounds.  */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Neutral scale, inverted. Lightness tuned so muted text stays legible
+     rather than being a mechanical mirror of the light values. */
+  --color-slate-50:  oklch(19.0% 0.021 258);
+  --color-slate-100: oklch(23.0% 0.023 258);
+  --color-slate-200: oklch(28.5% 0.026 258);
+  --color-slate-300: oklch(35.0% 0.030 258);
+  --color-slate-400: oklch(62.0% 0.034 256);
+  --color-slate-500: oklch(70.0% 0.032 256);
+  --color-slate-600: oklch(78.0% 0.028 254);
+  --color-slate-700: oklch(85.0% 0.022 252);
+  --color-slate-800: oklch(93.0% 0.014 250);
+  --color-slate-900: oklch(96.0% 0.009 248);
+  --color-slate-950: oklch(98.0% 0.004 248);
+
+  /* Accents lifted for contrast against dark surfaces. */
+  --color-blue-50:   oklch(28.0% 0.055 258);
+  --color-blue-100:  oklch(33.0% 0.070 258);
+  --color-blue-600:  oklch(62.0% 0.175 258);
+  --color-blue-700:  oklch(68.0% 0.165 258);
+  --color-red-50:    oklch(27.0% 0.055 20);
+  --color-red-100:   oklch(32.0% 0.070 20);
+  --color-emerald-50:  oklch(27.0% 0.050 160);
+  --color-emerald-100: oklch(32.0% 0.065 160);
+  --color-amber-50:  oklch(28.0% 0.050 80);
+  --color-amber-100: oklch(33.0% 0.065 80);
+
+  /* Existing tokens, re-pointed. */
+  --bg: #0b1120;
+  --fg: #e2e8f0;
+  --card-bg: rgba(20, 29, 47, 0.92);
+  --card-border: rgba(226, 232, 240, 0.10);
+  --accent: #60a5fa;
+  --accent-glow: rgba(96, 165, 250, 0.10);
+}
+
+/* ─── Surfaces ──────────────────────────────────────────
+   .surface replaces surface. .brand-solid stays dark in both themes
+   because it always carries text-white (logo, active nav, chat header). */
+.surface {
+  background-color: #ffffff;
+}
+:root[data-theme="dark"] .surface {
+  background-color: oklch(23.5% 0.024 258);
+}
+
+.brand-solid {
+  background-color: oklch(20.8% 0.042 265.755);
+}
+
+/* Same intent as .brand-solid but for the gradient panel: must stay dark in
+   both themes because it carries text-white. */
+.brand-gradient {
+  background-image: linear-gradient(
+    to bottom right,
+    oklch(20.8% 0.042 265.755),
+    oklch(27.9% 0.041 260.031)
+  );
+}
+:root[data-theme="dark"] .brand-gradient {
+  background-image: linear-gradient(
+    to bottom right,
+    oklch(26.0% 0.048 263),
+    oklch(32.0% 0.050 261)
+  );
+}
+
+/* These two surfaces stay dark in both themes, so their descendants must not
+   follow the inverted scale — otherwise text-slate-300 inside them turns dark
+   on dark. Restore the light-theme values within their subtree. */
+:root[data-theme="dark"] .brand-solid,
+:root[data-theme="dark"] .brand-gradient {
+  --color-slate-50:  oklch(98.4% 0.003 247.858);
+  --color-slate-100: oklch(96.8% 0.007 247.896);
+  --color-slate-200: oklch(92.9% 0.013 255.508);
+  --color-slate-300: oklch(86.9% 0.022 252.894);
+  --color-slate-400: oklch(70.4% 0.040 256.788);
+  --color-slate-500: oklch(55.4% 0.046 257.417);
+  --color-slate-600: oklch(44.6% 0.043 257.281);
+  --color-slate-700: oklch(37.2% 0.044 257.287);
+  --color-slate-800: oklch(27.9% 0.041 260.031);
+  --color-slate-900: oklch(20.8% 0.042 265.755);
+  --color-slate-950: oklch(12.9% 0.042 264.695);
+}
+.brand-solid:hover {
+  background-color: oklch(27.9% 0.041 260.031);
+}
+:root[data-theme="dark"] .brand-solid {
+  background-color: oklch(34.0% 0.055 262);
+}
+:root[data-theme="dark"] .brand-solid:hover {
+  background-color: oklch(40.0% 0.060 262);
+}
+
 /* ─── Base ──────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -36,10 +149,15 @@ html, body {
 
 body {
   background: radial-gradient(circle at 50% 0%, #f0f7ff 0%, var(--bg) 100%);
+  transition: background-color 0.2s ease, color 0.2s ease;
   color: var(--fg);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+}
+
+:root[data-theme="dark"] body {
+  background: radial-gradient(circle at 50% 0%, #142037 0%, var(--bg) 100%);
 }
 
 /* ─── Glassmorphism panel ───────────────────────────── */
@@ -52,9 +170,18 @@ body {
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+:root[data-theme="dark"] .glass-panel {
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.35);
+}
+
 .glass-panel:hover {
   border-color: rgba(15, 23, 42, 0.14);
   box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.07), 0 0 12px 0 var(--accent-glow);
+}
+
+:root[data-theme="dark"] .glass-panel:hover {
+  border-color: rgba(226, 232, 240, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 0 12px 0 var(--accent-glow);
 }
 
 /* ─── Page layout helpers ───────────────────────────── */
@@ -104,12 +231,18 @@ body {
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--scrollbar-track, rgba(0, 0, 0, 0.04));
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.14);
+  background: var(--scrollbar-thumb, rgba(0, 0, 0, 0.14));
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.28);
+  background: var(--scrollbar-thumb-hover, rgba(0, 0, 0, 0.28));
+}
+
+:root[data-theme="dark"] {
+  --scrollbar-track: rgba(255, 255, 255, 0.04);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.16);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.30);
 }

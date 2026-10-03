@@ -63,7 +63,7 @@ export default function Dashboard() {
         </div>
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs transition shadow-sm self-start md:self-auto"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl brand-solid text-white font-medium text-xs transition shadow-sm self-start md:self-auto"
         >
           <span>Kelola Barang</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -72,7 +72,7 @@ export default function Dashboard() {
 
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+        <div className="surface rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
           <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
             <Package className="w-5 h-5" />
           </div>
@@ -82,7 +82,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+        <div className="surface rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
           <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 shrink-0">
             <Layers className="w-5 h-5" />
           </div>
@@ -92,7 +92,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+        <div className="surface rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
           <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
             <DollarSign className="w-5 h-5" />
           </div>
@@ -104,7 +104,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
+        <div className="surface rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center space-x-4">
           <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
             <AlertTriangle className="w-5 h-5" />
           </div>
@@ -120,7 +120,7 @@ export default function Dashboard() {
 
         {/* Left Column (2 cols): Low Stock Table/Cards */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="surface rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div className="p-6 border-b border-slate-100 flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-base text-slate-900 flex items-center gap-2">
@@ -176,7 +176,7 @@ export default function Dashboard() {
 
         {/* Right Column: AI Assistant Info Card */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-xl flex flex-col justify-between h-full relative overflow-hidden">
+          <div className="brand-gradient rounded-2xl p-6 text-white shadow-xl flex flex-col justify-between h-full relative overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
 
             <div className="space-y-4 relative z-10">
@@ -195,7 +195,7 @@ export default function Dashboard() {
               </div>
 
               <div className="space-y-2 pt-2 text-xs">
-                <div className="p-3 rounded-xl bg-white/10 border border-white/10 text-slate-200">
+                <div className="p-3 rounded-xl surface/10 border border-white/10 text-slate-200">
                   <p className="font-medium text-blue-300">Kemampuan AI:</p>
                   <ul className="list-disc list-inside mt-1 space-y-1 text-slate-300 text-[11px]">
                     <li>Cari stok barang hampir habis</li>

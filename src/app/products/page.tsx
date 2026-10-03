@@ -297,7 +297,7 @@ export default function ProductsPage() {
   // Shared input class builder
   // ──────────────────────────────────────────────
   const inputCls = (error?: string) =>
-    `w-full bg-white border ${error ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-blue-500'} rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none transition`;
+    `w-full surface border ${error ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-blue-500'} rounded-xl px-4 py-2.5 text-sm text-slate-800 focus:outline-none transition`;
 
   return (
     <div className="page-wrap">
@@ -443,7 +443,7 @@ export default function ProductsPage() {
       {/* ─── PRODUCT MODAL ─── */}
       {showProductModal && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
+          <div className="surface w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
             {/* Modal header */}
             <div className="flex items-center justify-between p-6 border-b border-slate-200 bg-slate-50 shrink-0">
               <h3 className="text-lg font-bold text-slate-800 flex items-center">
@@ -708,7 +708,7 @@ export default function ProductsPage() {
       {/* ─── CATEGORY MODAL ─── */}
       {showCategoryModal && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+          <div className="surface w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
             <div className="flex items-center justify-between p-6 border-b border-slate-200 bg-slate-50">
               <h3 className="text-lg font-bold text-slate-800 flex items-center">
                 <Tag className="w-5 h-5 text-blue-600 mr-2" />
@@ -760,7 +760,7 @@ export default function ProductsPage() {
       {/* ─── TRANSACTION MODAL ─── */}
       {showTransactionModal && transactionProduct && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+          <div className="surface w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
             <div className={`flex items-center justify-between p-6 border-b border-slate-200 ${
               transactionForm.type === 'IN' ? 'bg-emerald-50' : 'bg-amber-50'
             }`}>

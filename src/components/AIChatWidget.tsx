@@ -77,9 +77,9 @@ export default function AIChatWidget() {
 
       {/* Floating Chat Box */}
       {isOpen && (
-        <div className="w-[360px] sm:w-[420px] h-[520px] bg-white border border-slate-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div className="w-[360px] sm:w-[420px] h-[520px] surface border border-slate-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
           {/* Header */}
-          <div className="px-5 py-3.5 bg-slate-900 text-white flex items-center justify-between shrink-0">
+          <div className="px-5 py-3.5 brand-solid text-white flex items-center justify-between shrink-0">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white">
                 <Bot className="w-4 h-4" />
@@ -98,7 +98,7 @@ export default function AIChatWidget() {
                 <button
                   onClick={handleResetChat}
                   title="Reset Percakapan"
-                  className="p-1.5 rounded-lg hover:text-white hover:bg-slate-800 transition"
+                  className="p-1.5 rounded-lg hover:text-white hover:bg-white/15 transition"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
@@ -106,7 +106,7 @@ export default function AIChatWidget() {
               <button
                 onClick={() => setIsOpen(false)}
                 title="Tutup Chatbot"
-                className="p-1.5 rounded-lg hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg hover:text-white hover:bg-white/15 transition"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -129,21 +129,21 @@ export default function AIChatWidget() {
                 <div className="flex flex-col gap-2 w-full pt-2">
                   <button 
                     onClick={() => setInputMessage('Barang apa saja yang stoknya hampir habis?')}
-                    className="w-full flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 text-left text-slate-700 hover:border-blue-500 hover:text-blue-600 transition shadow-sm"
+                    className="w-full flex items-center gap-2 p-2.5 rounded-xl surface border border-slate-200 text-left text-slate-700 hover:border-blue-500 hover:text-blue-600 transition shadow-sm"
                   >
                     <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                     <span>Periksa stok kritis</span>
                   </button>
                   <button 
                     onClick={() => setInputMessage('Berapa total nilai barang kita saat ini?')}
-                    className="w-full flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 text-left text-slate-700 hover:border-blue-500 hover:text-blue-600 transition shadow-sm"
+                    className="w-full flex items-center gap-2 p-2.5 rounded-xl surface border border-slate-200 text-left text-slate-700 hover:border-blue-500 hover:text-blue-600 transition shadow-sm"
                   >
                     <DollarSign className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                     <span>Hitung nilai aset total</span>
                   </button>
                   <button 
                     onClick={() => setInputMessage('Cari barang kategori elektronik')}
-                    className="w-full flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 text-left text-slate-700 hover:border-blue-500 hover:text-blue-600 transition shadow-sm"
+                    className="w-full flex items-center gap-2 p-2.5 rounded-xl surface border border-slate-200 text-left text-slate-700 hover:border-blue-500 hover:text-blue-600 transition shadow-sm"
                   >
                     <Search className="w-3.5 h-3.5 text-blue-500 shrink-0" />
                     <span>Cari produk elektronik</span>
@@ -164,7 +164,7 @@ export default function AIChatWidget() {
                   <div className={`p-3 rounded-2xl max-w-[82%] text-xs ${
                     msg.role === 'user' 
                       ? 'bg-blue-600 text-white rounded-tr-none font-medium' 
-                      : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none shadow-sm'
+                      : 'surface border border-slate-200 text-slate-800 rounded-tl-none shadow-sm'
                   }`}>
                     <p className="leading-relaxed whitespace-pre-line">{msg.content}</p>
                   </div>
@@ -182,7 +182,7 @@ export default function AIChatWidget() {
                 <div className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 mt-0.5 animate-pulse">
                   <Bot className="w-3.5 h-3.5" />
                 </div>
-                <div className="p-3 rounded-2xl bg-white border border-slate-200 text-slate-500 text-xs rounded-tl-none flex items-center space-x-2 shadow-sm">
+                <div className="p-3 rounded-2xl surface border border-slate-200 text-slate-500 text-xs rounded-tl-none flex items-center space-x-2 shadow-sm">
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" />
                   <span>AI sedang memproses...</span>
                 </div>
@@ -192,14 +192,14 @@ export default function AIChatWidget() {
           </div>
 
           {/* Footer Input */}
-          <form onSubmit={handleSendChat} className="p-3 bg-white border-t border-slate-200 flex items-center space-x-2 shrink-0">
+          <form onSubmit={handleSendChat} className="p-3 surface border-t border-slate-200 flex items-center space-x-2 shrink-0">
             <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Ketik pertanyaan untuk AI..."
               disabled={sendingChat}
-              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:surface transition-all"
             />
             <button
               type="submit"

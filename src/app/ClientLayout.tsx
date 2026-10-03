@@ -14,6 +14,7 @@ import {
   Box
 } from 'lucide-react';
 import AIChatWidget from '@/components/AIChatWidget';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -81,11 +82,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   return (
     <div className="h-full flex overflow-hidden bg-slate-50/50">
       {/* Sidebar — fluid width via --sidebar-w CSS variable */}
-      <aside className="sidebar border-r border-slate-200 bg-white flex flex-col justify-between shadow-sm">
+      <aside className="sidebar border-r border-slate-200 surface flex flex-col justify-between shadow-sm">
         <div className="p-6">
           {/* Logo */}
           <div className="flex items-center space-x-2.5 mb-6">
-            <div className="w-8 h-8 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-md shadow-slate-900/10 shrink-0">
+            <div className="w-8 h-8 rounded-xl brand-solid flex items-center justify-center text-white shadow-md shadow-slate-900/10 shrink-0">
               <Box className="w-4 h-4 text-blue-400" />
             </div>
             <div>
@@ -105,7 +106,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   href={link.href}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl transition-all font-medium text-xs ${
                     isActive
-                      ? 'bg-slate-900 text-white font-semibold shadow-sm'
+                      ? 'brand-solid text-white font-semibold shadow-sm'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                   }`}
                 >
@@ -140,13 +141,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 <p className="text-xs font-bold text-slate-800 truncate">{user.name}</p>
                 <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
               </div>
-              <button
-                onClick={handleLogout}
-                title="Keluar"
-                className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all shrink-0"
-              >
-                <LogOut className="w-4 h-4" />
-              </button>
+              <div className="flex items-center gap-0.5 shrink-0">
+                <ThemeToggle />
+                <button
+                  onClick={handleLogout}
+                  title="Keluar"
+                  className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all shrink-0"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           )}
         </div>
