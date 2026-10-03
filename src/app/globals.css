@@ -6,12 +6,12 @@
 
 /* ─── Design Tokens ─────────────────────────────────── */
 :root {
-  --bg: #f8fafc;
-  --fg: #0f172a;
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --card-border: rgba(15, 23, 42, 0.08);
+  --bg: #f6f7f9;
+  --fg: #172033;
+  --card-bg: rgba(255, 255, 255, 0.96);
+  --card-border: rgba(23, 32, 51, 0.09);
   --accent: #2563eb;
-  --accent-glow: rgba(37, 99, 235, 0.08);
+  --accent-glow: rgba(37, 99, 235, 0.07);
 
   /* Native controls (select dropdowns, scrollbars, date pickers) follow this. */
   color-scheme: light;
@@ -46,17 +46,17 @@
 
   /* Neutral scale, inverted. Lightness tuned so muted text stays legible
      rather than being a mechanical mirror of the light values. */
-  --color-slate-50:  oklch(19.0% 0.021 258);
-  --color-slate-100: oklch(23.0% 0.023 258);
-  --color-slate-200: oklch(28.5% 0.026 258);
-  --color-slate-300: oklch(35.0% 0.030 258);
-  --color-slate-400: oklch(62.0% 0.034 256);
-  --color-slate-500: oklch(70.0% 0.032 256);
-  --color-slate-600: oklch(78.0% 0.028 254);
-  --color-slate-700: oklch(85.0% 0.022 252);
-  --color-slate-800: oklch(93.0% 0.014 250);
-  --color-slate-900: oklch(96.0% 0.009 248);
-  --color-slate-950: oklch(98.0% 0.004 248);
+  --color-slate-50:  oklch(20.5% 0.018 258);
+  --color-slate-100: oklch(24.5% 0.020 258);
+  --color-slate-200: oklch(30.0% 0.022 258);
+  --color-slate-300: oklch(38.0% 0.024 258);
+  --color-slate-400: oklch(62.0% 0.025 258);
+  --color-slate-500: oklch(70.0% 0.022 258);
+  --color-slate-600: oklch(78.0% 0.018 258);
+  --color-slate-700: oklch(85.0% 0.014 258);
+  --color-slate-800: oklch(92.0% 0.010 258);
+  --color-slate-900: oklch(96.0% 0.006 258);
+  --color-slate-950: oklch(98.0% 0.003 258);
 
   /* Accents lifted for contrast against dark surfaces. */
   --color-blue-50:   oklch(28.0% 0.055 258);
@@ -71,12 +71,12 @@
   --color-amber-100: oklch(33.0% 0.065 80);
 
   /* Existing tokens, re-pointed. */
-  --bg: #0b1120;
-  --fg: #e2e8f0;
-  --card-bg: rgba(20, 29, 47, 0.92);
-  --card-border: rgba(226, 232, 240, 0.10);
-  --accent: #60a5fa;
-  --accent-glow: rgba(96, 165, 250, 0.10);
+  --bg: #111827;
+  --fg: #e5eaf2;
+  --card-bg: rgba(28, 37, 52, 0.98);
+  --card-border: rgba(203, 213, 225, 0.11);
+  --accent: #7cb5ff;
+  --accent-glow: rgba(124, 181, 255, 0.09);
 }
 
 /* ─── Surfaces ──────────────────────────────────────────
@@ -84,9 +84,10 @@
    because it always carries text-white (logo, active nav, chat header). */
 .surface {
   background-color: #ffffff;
+  color: var(--fg);
 }
 :root[data-theme="dark"] .surface {
-  background-color: oklch(23.5% 0.024 258);
+  background-color: #1c2534;
 }
 
 .brand-solid {
@@ -148,8 +149,8 @@ html, body {
 }
 
 body {
-  background: radial-gradient(circle at 50% 0%, #f0f7ff 0%, var(--bg) 100%);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  background: radial-gradient(circle at 50% 0%, #edf2f8 0%, var(--bg) 72%);
+  transition: background 0.2s ease, color 0.2s ease;
   color: var(--fg);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   line-height: 1.5;
@@ -157,7 +158,7 @@ body {
 }
 
 :root[data-theme="dark"] body {
-  background: radial-gradient(circle at 50% 0%, #142037 0%, var(--bg) 100%);
+  background: radial-gradient(circle at 50% 0%, #1b2738 0%, var(--bg) 72%);
 }
 
 /* ─── Glassmorphism panel ───────────────────────────── */
