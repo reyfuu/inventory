@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api, auth } from '@/lib/api';
+import Link from 'next/link';
+import { api } from '@/lib/api';
 import { Loader2, LogIn, AlertCircle, Package } from 'lucide-react';
 
 export default function LoginPage() {
@@ -11,13 +12,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    // If already logged in, redirect to dashboard
-    if (auth.isLoggedIn()) {
-      router.replace('/');
-    }
-  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,10 +22,9 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      const res = await api.login(email.trim(), password);
-      auth.setToken(res.token);
-      auth.setUser(res.user);
+      await api.login(email.trim(), password);
       router.push('/');
+      router.refresh();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login gagal. Periksa kembali email dan password Anda.';
       setError(msg);
@@ -121,18 +114,19 @@ export default function LoginPage() {
               </button>
             </form>
 
-            {/* Hint */}
-            <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-100 text-center">
-              <p className="text-xs text-blue-700 font-medium">
-                Demo: <span className="font-mono">admin@example.com</span> / <span className="font-mono">password123</span>
-              </p>
-            </div>
+            {/* Daftar */}
+            <p className="text-center text-xs text-slate-500">
+              Belum punya akun?{' '}
+              <Link href="/register" className="font-semibold text-blue-600 hover:text-blue-700">
+                Daftar di sini
+              </Link>
+            </p>
           </div>
         </div>
 
         {/* Footer */}
         <p className="text-center text-xs text-slate-400 mt-6">
-          SmartStock AI &copy; {new Date().getFullYear()} &mdash; Built with Next.js + Go + Gemini
+          SmartStock AI &copy; {new Date().getFullYear()} &mdash; Next.js + Neon Postgres + Gemini
         </p>
       </div>
     </div>

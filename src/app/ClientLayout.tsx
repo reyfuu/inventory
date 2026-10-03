@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { auth, User } from '@/lib/api';
+import { api, User } from '@/lib/api';
 import { 
   LogOut, 
   Loader2, 
@@ -21,30 +21,40 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [user, setUser] = useState<User | null>(null);
   const [checking, setChecking] = useState(true);
 
-  const isLoginPage = pathname === '/login';
+  const isLoginPage = pathname === '/login' || pathname === '/register';
 
   useEffect(() => {
     if (isLoginPage) {
       return;
     }
 
-    const token = auth.getToken();
-    const storedUser = auth.getUser();
+    // middleware.ts already blocked unauthenticated page loads; this call just
+    // fetches who the session belongs to so the sidebar can show their name.
+    let cancelled = false;
+    api
+      .me()
+      .then((me) => {
+        if (!cancelled) {
+          setUser(me);
+          setChecking(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) router.replace('/login');
+      });
 
-    if (!token || !storedUser) {
-      router.replace('/login');
-      return;
-    }
-
-    setTimeout(() => {
-      setUser(storedUser);
-      setChecking(false);
-    }, 0);
+    return () => {
+      cancelled = true;
+    };
   }, [pathname, isLoginPage, router]);
 
-  const handleLogout = () => {
-    auth.clear();
-    router.push('/login');
+  const handleLogout = async () => {
+    try {
+      await api.logout();
+    } finally {
+      router.push('/login');
+      router.refresh();
+    }
   };
 
   // ── Login page: render without sidebar ──

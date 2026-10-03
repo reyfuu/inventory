@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+// Same-origin: the API now lives in this app's Route Handlers.
+const API_BASE_URL = '/api';
 
 export interface User {
   id: string;
@@ -48,51 +49,25 @@ export interface ChatMessage {
 // Token helpers (localStorage, client-side only)
 // ─────────────────────────────────────────────────────
 
-export const auth = {
-  getToken: (): string | null => {
-    if (typeof window === 'undefined') return null;
-    return localStorage.getItem('inv_token');
-  },
-  setToken: (token: string) => {
-    if (typeof window !== 'undefined') localStorage.setItem('inv_token', token);
-  },
-  setUser: (user: User) => {
-    if (typeof window !== 'undefined') localStorage.setItem('inv_user', JSON.stringify(user));
-  },
-  getUser: (): User | null => {
-    if (typeof window === 'undefined') return null;
-    const raw = localStorage.getItem('inv_user');
-    return raw ? JSON.parse(raw) : null;
-  },
-  clear: () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('inv_token');
-      localStorage.removeItem('inv_user');
-    }
-  },
-  isLoggedIn: (): boolean => !!auth.getToken(),
-};
 
 // ─────────────────────────────────────────────────────
 // Fetch helper — auto-attaches Authorization header
 // ─────────────────────────────────────────────────────
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const token = auth.getToken();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options?.headers as Record<string, string>),
   };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
 
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
     headers,
+    credentials: 'same-origin',
   });
 
   // If 401, clear session and redirect to login
   if (response.status === 401) {
-    auth.clear();
     if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
       window.location.href = '/login';
     }
@@ -124,10 +99,16 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 export const api = {
   // ── Auth ──
   login: (email: string, password: string) =>
-    request<{ token: string; user: User }>('/auth/login', {
+    request<{ user: User }>('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     }),
+  register: (data: { name: string; email: string; password: string; signupCode: string }) =>
+    request<{ user: User }>('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  logout: () => request<{ message: string }>('/auth/logout', { method: 'POST' }),
   me: () => request<User>('/auth/me'),
 
   // ── Categories ──

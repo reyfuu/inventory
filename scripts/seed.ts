@@ -7,7 +7,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { eq } from "drizzle-orm";
 
-import { categories, users } from "../lib/db/schema";
+import { categories, users } from "../src/lib/db/schema";
 
 const DEFAULT_CATEGORIES = [
   { name: "Elektronik", description: "Barang elektronik seperti HP, laptop, dan aksesoris" },
