@@ -32,6 +32,7 @@ backend/cmd/api/api
 /out/
 *.tsbuildinfo
 next-env.d.ts
+.gstack/
 .vercel
 *.pem
 npm-debug.log*

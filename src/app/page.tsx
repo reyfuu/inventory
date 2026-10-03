@@ -63,7 +63,7 @@ export default function Dashboard() {
         </div>
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl brand-solid text-white font-medium text-xs transition shadow-sm self-start md:self-auto"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl brand-primary text-white font-medium text-xs transition shadow-sm self-start md:self-auto"
         >
           <span>Kelola Barang</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -176,7 +176,7 @@ export default function Dashboard() {
 
         {/* Right Column: AI Assistant Info Card */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="brand-gradient rounded-2xl p-6 text-white shadow-xl flex flex-col justify-between h-full relative overflow-hidden">
+          <div className="brand-gradient rounded-2xl p-6 shadow-xl flex flex-col justify-between h-full relative overflow-hidden">
             <div className="absolute -top-12 -right-12 w-40 h-40 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
 
             <div className="space-y-4 relative z-10">
@@ -185,19 +185,19 @@ export default function Dashboard() {
               </div>
 
               <div>
-                <h3 className="font-extrabold text-lg text-white tracking-tight flex items-center gap-2">
+                <h3 className="ai-card-title font-extrabold text-lg tracking-tight flex items-center gap-2">
                   <span>Asisten AI Gudang</span>
-                  <Sparkles className="w-4 h-4 text-blue-400" />
+                  <Sparkles className="w-4 h-4 text-blue-600" />
                 </h3>
-                <p className="text-slate-300 text-xs mt-2 leading-relaxed">
+                <p className="ai-card-copy text-xs mt-2 leading-relaxed">
                   Asisten AI berbasis Gemini terhubung ke database PostgreSQL Anda. Anda dapat mengajukan pertanyaan kapan saja.
                 </p>
               </div>
 
               <div className="space-y-2 pt-2 text-xs">
-                <div className="p-3 rounded-xl surface/10 border border-white/10 text-slate-200">
-                  <p className="font-medium text-blue-300">Kemampuan AI:</p>
-                  <ul className="list-disc list-inside mt-1 space-y-1 text-slate-300 text-[11px]">
+                <div className="ai-card-capabilities p-3 rounded-xl border">
+                  <p className="ai-card-label font-medium">Kemampuan AI:</p>
+                  <ul className="ai-card-list list-disc list-inside mt-1 space-y-1 text-[11px]">
                     <li>Cari stok barang hampir habis</li>
                     <li>Hitung nilai estimasi total aset</li>
                     <li>Generate otomatis deskripsi & kategori</li>
@@ -207,9 +207,9 @@ export default function Dashboard() {
             </div>
 
             <div className="pt-6 relative z-10">
-              <p className="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <p className="ai-card-hint text-[11px] flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Klik tombol <span className="font-semibold text-white">&quot;Asisten AI&quot;</span> di kanan bawah untuk memulai chat.
+                Klik tombol <span className="ai-card-action font-semibold">&quot;Asisten AI&quot;</span> di kanan bawah untuk memulai chat.
               </p>
             </div>
           </div>
