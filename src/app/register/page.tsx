@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
-import { Loader2, UserPlus, AlertCircle, Box } from 'lucide-react';
+import { Loader2, UserPlus, AlertCircle, Box, Eye, EyeOff } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signupCode, setSignupCode] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -87,11 +88,23 @@ export default function RegisterPage() {
 
               <div className="space-y-1.5">
                 <label htmlFor="password" className="text-xs font-semibold text-slate-600">Password</label>
-                <input
-                  id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Minimal 8 karakter" autoComplete="new-password"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition"
-                />
+                <div className="relative">
+                  <input
+                    id="password" type={showPassword ? 'text' : 'password'} value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Minimal 8 karakter" autoComplete="new-password"
+                    className="w-full pl-3.5 pr-11 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
+                    aria-pressed={showPassword}
+                    className="absolute inset-y-0 right-0 flex items-center px-3 text-slate-400 hover:text-slate-600 focus:outline-none focus:text-blue-600 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-1.5">
