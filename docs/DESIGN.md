@@ -1,5 +1,8 @@
 # System Design & Architecture - Smart Inventory System
 
+> **Catatan:** dokumen ini adalah rancangan awal proyek dan dipertahankan sebagai arsip.
+> Sumber kebenaran arsitektur yang berlaku adalah [TRD.md](TRD.md).
+
 Dokumen ini mendeskripsikan arsitektur sistem, skema database, dan mekanisme integrasi AI (Gemini Agent) untuk Smart Inventory System.
 
 ---

@@ -25,3 +25,5 @@ backend/cmd/api/api
 .vscode/
 .idea/
 *.swp
+.neon
+.env.local
