@@ -63,7 +63,7 @@ export default function Dashboard() {
         </div>
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl brand-solid text-white font-medium text-xs transition shadow-sm self-start md:self-auto"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl brand-primary text-white font-medium text-xs transition shadow-sm self-start md:self-auto"
         >
           <span>Kelola Barang</span>
           <ArrowRight className="w-3.5 h-3.5" />

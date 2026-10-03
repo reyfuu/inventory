@@ -86,8 +86,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <div className="p-6">
           {/* Logo */}
           <div className="flex items-center space-x-2.5 mb-6">
-            <div className="w-8 h-8 rounded-xl brand-solid flex items-center justify-center text-white shadow-md shadow-slate-900/10 shrink-0">
-              <Box className="w-4 h-4 text-blue-400" />
+            <div className="w-8 h-8 rounded-xl brand-primary flex items-center justify-center text-white shadow-md shadow-blue-900/15 shrink-0">
+              <Box className="w-4 h-4 text-white" />
             </div>
             <div>
               <h1 className="font-extrabold text-slate-900 tracking-tight text-sm leading-tight">SmartStock AI</h1>
@@ -106,11 +106,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   href={link.href}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl transition-all font-medium text-xs ${
                     isActive
-                      ? 'brand-solid text-white font-semibold shadow-sm'
+                      ? 'nav-active font-semibold shadow-sm'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-blue-400' : 'text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'nav-active-icon' : 'text-slate-400'}`} />
                   <span>{link.label}</span>
                 </Link>
               );
