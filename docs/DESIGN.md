@@ -3,6 +3,30 @@
 > **Catatan:** dokumen ini adalah rancangan awal proyek dan dipertahankan sebagai arsip.
 > Sumber kebenaran arsitektur yang berlaku adalah [TRD.md](TRD.md).
 
+## Arah visual yang berlaku
+
+Bagian ini menjadi acuan visual UI yang diterapkan saat ini. Tema terang dan gelap harus terasa seperti dua tampilan dari produk yang sama: biru dipakai sebagai aksen dan aksi utama, sedangkan permukaan dan teks memakai warna netral agar data inventaris tetap mudah dipindai.
+
+### Tema terang
+
+- Kanvas memakai abu-abu sangat muda yang netral; panel, tabel, dan formulir memakai putih bersih.
+- Teks utama berwarna slate gelap, teks sekunder memakai slate sedang, dan garis pemisah tetap halus.
+- Biru digunakan untuk aksi utama, tautan, serta penanda fokus. Warna status hijau, amber, dan merah tetap membawa makna yang sama.
+- Hindari gradien biru yang kuat pada area kerja; latar hanya boleh memberi sedikit kedalaman.
+
+### Tema gelap
+
+- Kanvas memakai slate gelap yang sedikit lebih terang daripada hitam pekat. Panel dinaikkan satu tingkat agar batas panel mudah dikenali.
+- Teks utama berwarna terang lembut, teks sekunder tetap terbaca, dan border memiliki kontras tipis.
+- Biru aksen dinaikkan kecerahannya secukupnya untuk tombol, tautan, dan fokus. Status tetap memakai hue hijau, amber, dan merah.
+- Logo, navigasi aktif, dan header chat memakai permukaan brand gelap dengan teks putih pada kedua tema.
+
+### Perilaku tema
+
+- Kontrol tema berputar antara terang, gelap, dan mengikuti preferensi perangkat. Pilihan eksplisit disimpan di `localStorage`.
+- Preferensi perangkat hanya diikuti saat pilihan tema masih otomatis, dan diterapkan sebelum paint pertama agar halaman tidak berkedip.
+- Warna dasar dikelola di `src/app/globals.css`; kelas warna Tailwind yang dipakai halaman mengikuti palet netral sesuai tema.
+
 Dokumen ini mendeskripsikan arsitektur sistem, skema database, dan mekanisme integrasi AI (Gemini Agent) untuk Smart Inventory System.
 
 ---
