@@ -24,7 +24,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html
+      lang="id"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <head>
+        {/*
+          Runs before first paint. Doing this in React would show a white
+          flash on every load for dark-mode users, because the theme is only
+          known on the client.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}})()`,
+          }}
+        />
+      </head>
       <body className="h-full">
         <ClientLayout>{children}</ClientLayout>
       </body>

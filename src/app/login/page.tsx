@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import ThemeToggle from '@/components/ThemeToggle';
 import { Loader2, LogIn, AlertCircle, Package, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
@@ -35,16 +36,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{
-      background: 'radial-gradient(circle at 50% 0%, #eff6ff 0%, #f8fafc 100%)'
-    }}>
+    <div className="min-h-screen flex items-center justify-center p-4">
       {/* Background decorative blobs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/60 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-indigo-100/50 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative w-full max-w-md">
+        {/* Theme switch — available before sign-in, not only after */}
+        <div className="flex justify-end mb-3">
+          <ThemeToggle />
+        </div>
+
         {/* Card */}
-        <div className="bg-white rounded-3xl shadow-2xl shadow-slate-200/80 border border-slate-100 overflow-hidden">
+        <div className="surface rounded-3xl shadow-2xl shadow-slate-200/80 border border-slate-100 overflow-hidden">
           {/* Top gradient bar */}
           <div className="h-1.5 w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500" />
 
@@ -81,7 +85,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setError(''); }}
                   placeholder="nama@email.com"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:surface transition-all"
                 />
               </div>
 
@@ -97,7 +101,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); setError(''); }}
                     placeholder="••••••••"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-11 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-11 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:surface transition-all"
                   />
                   <button
                     type="button"
