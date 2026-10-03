@@ -1,16 +1,30 @@
 {
-  "name": "inventory-root",
+  "name": "inventory",
   "version": "1.0.0",
-  "description": "Root package manager to concurrently run Next.js and Go systems",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "description": "Smart Inventory System — Next.js + Neon Postgres + Gemini AI",
   "scripts": {
-    "install:all": "npm install && npm install --prefix frontend",
-    "dev:frontend": "npm run dev --prefix frontend",
-    "dev:backend": "cd backend && go run cmd/api/main.go",
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
     "@neon/config": "^1.8.3",
-    "@neon/env": "^1.5.0",
-    "concurrently": "^8.2.2"
+    "lucide-react": "^1.25.0",
+    "next": "16.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
