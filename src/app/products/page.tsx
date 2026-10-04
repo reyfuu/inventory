@@ -83,18 +83,15 @@ export default function ProductsPage() {
   const [transactionProduct, setTransactionProduct] = useState<Product | null>(null);
 
   const loadData = async () => {
-    try {
-      const [prodData, catData] = await Promise.all([
-        api.getProducts(),
-        api.getCategories(),
-      ]);
-      setProducts(prodData);
-      setCategories(catData);
-    } catch (err) {
-      console.error('Error fetching products:', err);
-    } finally {
-      setLoading(false);
-    }
+    const [prodResult, catResult] = await Promise.allSettled([
+      api.getProducts(),
+      api.getCategories(),
+    ]);
+    if (prodResult.status === 'fulfilled') setProducts(prodResult.value);
+    else console.error('Error fetching products:', prodResult.reason);
+    if (catResult.status === 'fulfilled') setCategories(catResult.value);
+    else console.error('Error fetching categories:', catResult.reason);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -506,6 +503,7 @@ export default function ProductsPage() {
                     Kategori <span className="text-red-500">*</span>
                   </label>
                   <select
+                    required
                     value={productForm.category_id}
                     onChange={(e) => {
                       setProductForm({ ...productForm, category_id: e.target.value });
@@ -518,6 +516,11 @@ export default function ProductsPage() {
                       <option key={c.id} value={c.id}>{c.name}</option>
                     ))}
                   </select>
+                  {categories.length === 0 && (
+                    <p className="mt-1 text-xs text-amber-600">
+                      Belum ada kategori. Buat kategori baru terlebih dahulu.
+                    </p>
+                  )}
                   <FieldError msg={formErrors.category_id} />
                 </div>
               </div>
